@@ -21,7 +21,7 @@ companies = ["https://or.justice.cz/ias/ui/vypis-sl-firma?subjektId=174660",
 
 compare = ["výroční zpráva [2021]","výroční zpráva [2020]","výroční zpráva [2019]","výroční zpráva [2018]","výroční zpráva [2017]"]
 # Je mozne ze download speed bude too fucking slow a nechci to checkovat pomoci download adresare kam se normalne veci stahuji
-# Takze kdytak upravit sleep timer dole na vice sekund
+# Takze kdytak upravit sleep timer dole na vice sekund (pokud by jste to opravdu chteli tak se obetuji)
 
 for zprava in compare:
 	for link in companies:
