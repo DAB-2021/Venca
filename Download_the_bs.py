@@ -7,8 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-PATH = "C:\Program Files (x86)\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
+PATH = "C:\Program Files (x86)\chromedriver.exe" #Cesta k webdriveru
+driver = webdriver.Chrome(PATH) #jmeno
 
 companies = ["https://or.justice.cz/ias/ui/vypis-sl-firma?subjektId=174660",
 "https://or.justice.cz/ias/ui/vypis-sl-firma?subjektId=274834",
@@ -23,13 +23,13 @@ compare = ["výroční zpráva [2021]","výroční zpráva [2020]","výroční z
 # Je mozne ze download speed bude too fucking slow a nechci to checkovat pomoci download adresare kam se normalne veci stahuji
 # Takze kdytak upravit sleep timer dole na vice sekund (pokud by jste to opravdu chteli tak se obetuji)
 
-for zprava in compare:
-	for link in companies:
+for zprava in compare: #Loop pro vyrocni zpravy
+	for link in companies: #Loop pro spolecnosti
 		driver.get(link)
 
-		main = driver.find_element_by_class_name("list")
-		tbody = main.find_element(By.TAG_NAME, "tbody")
-		rows = tbody.find_elements(By.TAG_NAME, "tr")
+		main = driver.find_element_by_class_name("list") #Lokace tablky
+		tbody = main.find_element(By.TAG_NAME, "tbody") #preskoceni nadpisu
+		rows = tbody.find_elements(By.TAG_NAME, "tr") #radky
 
 		col = 0
 
@@ -37,8 +37,8 @@ for zprava in compare:
 			col = row.find_elements(By.TAG_NAME,"td")[1].text
 			print(col)
 			if zprava in col:
-				cell = row.find_elements(By.TAG_NAME,"td")[0].text
-				driver.find_element(By.PARTIAL_LINK_TEXT,cell).click()
+				cell = row.find_elements(By.TAG_NAME,"td")[0].text 
+				driver.find_element(By.PARTIAL_LINK_TEXT,cell).click() #Nalez radku -> clickni na odkaz na presmerovani 
 				break
 		try:
 		   	element = WebDriverWait(driver, 2).until(
@@ -47,6 +47,6 @@ for zprava in compare:
 		   	driver.find_element(By.PARTIAL_LINK_TEXT,'kB').click()
 		   	time.sleep(1)
 		except:
-		  	break		
+		  	break #pokud to nenalezne odkaz (neni to na dalsi strance escape z loopu)
 
 driver.quit()
