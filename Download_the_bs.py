@@ -22,7 +22,6 @@ companies = ["https://or.justice.cz/ias/ui/vypis-sl-firma?subjektId=174660",
 compare = ["výroční zpráva [2021]","výroční zpráva [2020]","výroční zpráva [2019]","výroční zpráva [2018]","výroční zpráva [2017]"]
 
 for zprava in compare:
-	pass
 	for link in companies:
 		driver.get(link)
 
