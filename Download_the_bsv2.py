@@ -19,31 +19,30 @@ listveci = driver.find_elements_by_class_name("upme-name")
 listfirem = []
 for vec in listveci:
 	listfirem.append(vec.text)
-i = -1
-for zprava in compare: #Loop pro vyrocni zpravy
-	i += 1
-	for link in listfirem: #Loop pro spolecnosti
 
-		driver.get("https://or.justice.cz/ias/ui/rejstrik")
-		driver.find_element(By.CLASS_NAME,"text").send_keys(link)
-		driver.find_element(By.ID,"quick-search-button").click()
+for link in listfirem: #Loop pro spolecnosti
+	driver.get("https://or.justice.cz/ias/ui/rejstrik")
+	driver.find_element(By.CLASS_NAME,"text").send_keys(link)
+	driver.find_element(By.ID,"quick-search-button").click()
 
-		try:
-		   	element = WebDriverWait(driver, 2).until(
-	        	EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Sbírka"))
-	    	)
-			driver.find_element(By.PARTIAL_LINK_TEXT,"Sbírka").click()
-		except:
-		  	break
-
+	try:
+		element = WebDriverWait(driver, 1).until(
+		EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Sbírka"))
+		)
+		driver.find_element(By.PARTIAL_LINK_TEXT,"Sbírka").click()
+	except:
+		print("fuck me1")
+		continue
+	i = -1
+	for zprava in compare: #Loop pro vyrocni zpravy.
+		col = 0
+		i += 1
 		main = driver.find_element_by_class_name("list") #Lokace tablky
 		tbody = main.find_element(By.TAG_NAME, "tbody") #preskoceni nadpisu
 		rows = tbody.find_elements(By.TAG_NAME, "tr") #radky
-
-		col = 0
-
 		for row in rows:
 			col = row.find_elements(By.TAG_NAME,"td")[1].text
+
 			if zprava in col:
 				print(col)
 				cell = row.find_elements(By.TAG_NAME,"td")[0].text 
@@ -60,6 +59,7 @@ for zprava in compare: #Loop pro vyrocni zpravy
 	        	EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "kB"))
 	    	)
 		   	driver.find_element(By.PARTIAL_LINK_TEXT,'kB').click()
+		   	driver.execute_script("window.history.go(-1)")
 		   	time.sleep(1)
 		except:
 		  	print("fuck me") #pokud to nenalezne odkaz (neni to na dalsi strance escape z loopu)
