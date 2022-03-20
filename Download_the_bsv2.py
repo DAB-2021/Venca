@@ -26,12 +26,11 @@ for link in listfirem: #Loop pro spolecnosti
 	driver.find_element(By.ID,"quick-search-button").click()
 
 	try:
-		element = WebDriverWait(driver, 1).until(
+		element = WebDriverWait(driver, 2).until(
 		EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Sbírka"))
 		)
 		driver.find_element(By.PARTIAL_LINK_TEXT,"Sbírka").click()
 	except:
-		print("fuck me1")
 		continue
 	i = -1
 	for zprava in compare: #Loop pro vyrocni zpravy.
@@ -44,12 +43,10 @@ for link in listfirem: #Loop pro spolecnosti
 			col = row.find_elements(By.TAG_NAME,"td")[1].text
 
 			if zprava in col:
-				print(col)
 				cell = row.find_elements(By.TAG_NAME,"td")[0].text 
 				driver.find_element(By.PARTIAL_LINK_TEXT,cell).click() #Nalez radku -> clickni na odkaz na presmerovani 
 				break
 			elif ucetni[i] in col:
-				print(col)
 				cell = row.find_elements(By.TAG_NAME,"td")[0].text 
 				driver.find_element(By.PARTIAL_LINK_TEXT,cell).click() #Nalez radku -> clickni na odkaz na presmerovani 
 				break
@@ -62,6 +59,6 @@ for link in listfirem: #Loop pro spolecnosti
 		   	driver.execute_script("window.history.go(-1)")
 		   	time.sleep(1)
 		except:
-		  	print("fuck me") #pokud to nenalezne odkaz (neni to na dalsi strance escape z loopu)
+		  	print("test_error") #pokud to nenalezne odkaz (neni to na dalsi strance escape z loopu)
 
 driver.quit()
