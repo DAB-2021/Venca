@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-def loguj(text): #Metoda pro zapsani erroru do souboru.
+def loguj(text): #Metoda pro zapsani erroru do souboru. Je mozny ze bude potreba vytvorit lokalne soubor aby to tam mohlo zapisovat
 	print(text)
 	with open("logfile.txt", "a", encoding='utf-8') as logfile:
 		logfile.write(text+"\n")
